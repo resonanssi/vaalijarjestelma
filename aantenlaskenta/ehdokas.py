@@ -4,6 +4,7 @@ class Tila(Enum):
     Valittu = 1
     Toiveikas = 2
     Pudotettu = 3
+    Jättäytynyt = 4
 
 class Ehdokas:
     _id: int

@@ -2,6 +2,15 @@ from lipuke import Lipuke
 from ehdokas import Ehdokas
 
 def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipuke]]:
+    """
+    Ottaa parametrina opavoten generoiman datan rivitettynä.
+    Palauttaa (vaalin nimi, paikkojen määrä, ehdokkaat, lipukkeet)
+
+    ```
+    with open("vaali.txt") as f:
+        vaali, paikat, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines())
+    ```
+    """
     iteraattori = iter(map(str.strip, syöte))
 
     eka_rivi = next(iteraattori).split()
