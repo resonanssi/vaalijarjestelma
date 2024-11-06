@@ -14,7 +14,6 @@ def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipu
     iteraattori = iter(map(str.strip, syöte))
 
     eka_rivi = next(iteraattori).split()
-    print(eka_rivi)
     if len(eka_rivi) != 2:
         raise LipukeVirhe("Ensimmäisellä rivillä pitää olla tasan kaksi lukua")
 
@@ -26,8 +25,8 @@ def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipu
         ids = [int(x) for x in osat]
         lipukkeet.append(Lipuke(ids))
 
-    ehdokkaat = []
     i = 1
+    ehdokkaat = []
     while i <= ehdokasmäärä:
         nimi = next(iteraattori)[1:-1]
         ehdokkaat.append(Ehdokas(nimi, i))

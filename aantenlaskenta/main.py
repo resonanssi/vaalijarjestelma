@@ -3,17 +3,16 @@ from ehdokas import Ehdokas, Tila
 from lipuke import Lipuke
 from vaali import suorita_vaali
 
+
 def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
-    print("Kuka/ketkä ehdokkaista jättäytyvät?")
-    print()
+    print("Kuka/ketkä ehdokkaista jättäytyvät?\n")
+
     for ehdokas in ehdokkaat:
         print(f"[{ehdokas._id}]: {ehdokas.nimi}")
 
-    print()
-    print("Syötä pois jättäytyvän ehdokkaan id (nimeä edeltävä numero).")
+    print("\nSyötä pois jättäytyvän ehdokkaan id (nimeä edeltävä numero).")
     print("Jos pois jättäytyviä ehdokkaita on monta, syötä ne kaikki pilkulla erotettuna.")
-    print("Esimerkiksi: 2, 3, 10")
-    print()
+    print("Esimerkiksi: 2, 3, 10\n")
 
     syöte = input("> ").strip().split(",")    
     pois_jättäytyvät_id = [int(id) for id in syöte]
@@ -31,6 +30,7 @@ def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
 
     return pois_jättäytyvät
     
+
 def poista_jättäytyneet_lipukkeista(jättäytyneet: list[Ehdokas], lipukkeet: list[Lipuke]):
     for ehdokas in jättäytyneet:
         ehdokas.tila = Tila.Jättäytynyt
@@ -59,6 +59,7 @@ if __name__ == "__main__":
         print(f"Ehdokas {ehdokas.nimi}: {ehdokas.tila}")
 
     print()
+
     for lipuke in lipukkeet:
         print(lipuke.ehdokkaat)
     # suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet)

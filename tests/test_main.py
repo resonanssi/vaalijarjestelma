@@ -2,6 +2,7 @@ from main import poista_jättäytyneet_lipukkeista
 from ehdokas import Ehdokas, Tila
 from lipuke import Lipuke
 
+
 def alusta_ehdokkaat():
     return [
         Ehdokas("Ehdokas 1", 1),
@@ -38,6 +39,7 @@ def test_jättäytyminen1():
     assert lipukkeet[1].ehdokkaat == [5, 4, 3]
     assert lipukkeet[2].ehdokkaat == [3, 5]
     assert lipukkeet[3].ehdokkaat == [4]
+
 
 def test_jättäytyminen2():
     ehdokkaat = alusta_ehdokkaat()    
