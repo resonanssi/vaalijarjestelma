@@ -13,6 +13,7 @@ class Ehdokas:
     nimi: str
     painokerroin: float
     tila: Tila
+    summa: float
 
 
     def __init__(self, nimi: str, _id: int):
@@ -20,6 +21,7 @@ class Ehdokas:
         self.tila = Tila.Toiveikas
         self.painokerroin = 1.0
         self._id = _id
+        self.summa = 0.0
 
 
     def __str__(self) -> str:

@@ -1,4 +1,4 @@
-import opavote
+from opavote import lue_lipukkeet
 from ehdokas import Ehdokas, Tila
 from lipuke import Lipuke
 from vaali import suorita_vaali
@@ -34,6 +34,7 @@ def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
 def poista_jättäytyneet_lipukkeista(jättäytyneet: list[Ehdokas], lipukkeet: list[Lipuke]):
     for ehdokas in jättäytyneet:
         ehdokas.tila = Tila.Jättäytynyt
+        ehdokas.painokerroin = 0.0
 
     jättäytyneet_id = [ehdokas._id for ehdokas in jättäytyneet]
 
@@ -44,9 +45,10 @@ def poista_jättäytyneet_lipukkeista(jättäytyneet: list[Ehdokas], lipukkeet: 
 if __name__ == "__main__":
 
     with open("testivaali.txt") as f:
-        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = opavote.lue_lipukkeet(f.readlines())
+        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines())
 
-    joku_jättäytyy = input("Jättäytyykö joku ehdokas pois? [y/N]: ")
+    joku_jättäytyy = input("Jättäytyykö joku ehdokas poi﻿s? Syötä 'y' jos joku jättäytyy, muuten paina enteriä.")
+    print()
 
     if joku_jättäytyy == "y":
         jättäytyneet = kysy_jättäytyneet(ehdokkaat)
@@ -60,6 +62,4 @@ if __name__ == "__main__":
 
     print()
 
-    for lipuke in lipukkeet:
-        print(lipuke.ehdokkaat)
-    # suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet)
+    suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet)

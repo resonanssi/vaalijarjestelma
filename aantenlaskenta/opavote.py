@@ -15,7 +15,7 @@ def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipu
 
     eka_rivi = next(iteraattori).split()
     if len(eka_rivi) != 2:
-        raise LipukeVirhe("Ensimmäisellä rivillä pitää olla tasan kaksi lukua")
+        raise Exception("Ensimmäisellä rivillä pitää olla tasan kaksi lukua")
 
     ehdokasmäärä, paikkamäärä = [int(x) for x in eka_rivi]
 
