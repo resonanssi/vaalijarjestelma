@@ -94,6 +94,7 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
     pudotettu = pudota_pienin(toiveikkaat)
 
     if pudotettu is not None:
+        print(f"Pudotetaan ehdokas [{pudotettu._id}]: {pudotettu.nimi}")
         return
 
     
