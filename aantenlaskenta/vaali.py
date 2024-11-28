@@ -14,8 +14,6 @@ def laske_äänikynnys(hyväksytyt_äänet: int, äänihukka: float, paikkamää
 
 
 def päivitä_painokertoimet(ehdokkaat: list[Ehdokas], äänikynnys: int) -> bool:
-    jatketaan = False
-    
     print("Äänikynnys:", äänikynnys)
     for ehdokas in ehdokkaat:
         if ehdokas.tila != Tila.Valittu:
@@ -26,10 +24,13 @@ def päivitä_painokertoimet(ehdokkaat: list[Ehdokas], äänikynnys: int) -> boo
         vanha = ehdokas.painokerroin
         ehdokas.painokerroin *= äänikynnys / ehdokas.summa
 
-        if abs(ehdokas.summa - äänikynnys) > 0.00001:
-            jatketaan = True
 
-    return jatketaan
+def valittujen_painokertoimet_oikein(ehdokkaat: list[Ehdokas], äänikynnys: int) -> bool:
+    for ehdokas in ehdokkaat:
+        if ehdokas.tila == Tila.Valittu and abs(ehdokas.summa - äänikynnys) > 0.00001:
+            return False
+
+    return True
 
 
 def valitse_toiveikkaat(toiveikkaat: list[Ehdokas], äänikynnys) -> list[Ehdokas]:
@@ -74,7 +75,8 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
 
         äänikynnys = ceil_5dec(äänikynnys)
 
-        jatketaan = päivitä_painokertoimet(ehdokkaat, äänikynnys)
+        päivitä_painokertoimet(ehdokkaat, äänikynnys)
+        jatketaan = not valittujen_painokertoimet_oikein(ehdokkaat, äänikynnys)
 
     valitut = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Valittu)
     toiveikkaat = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Toiveikas)
