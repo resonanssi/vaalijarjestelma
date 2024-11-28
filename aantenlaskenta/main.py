@@ -56,10 +56,6 @@ if __name__ == "__main__":
 
     print(vaalin_nimi)
     print()
-
-    for ehdokas in ehdokkaat:
-        print(f"Ehdokas {ehdokas.nimi}: {ehdokas.tila}")
-
     print()
 
     suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet)
