@@ -2,6 +2,7 @@ from ehdokas import Ehdokas, Tila
 from lipuke import Lipuke
 import math
 
+
 def ceil_5dec(x: float) -> float:
     return math.ceil(x * 100_000) / 100_000
 

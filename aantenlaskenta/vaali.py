@@ -9,7 +9,9 @@ def nollaa_summat(ehdokkaat: list[Ehdokas]):
         ehdokas.summa = 0.0
 
 
-def laske_äänikynnys(hyväksytyt_äänet: int, äänihukka: float, paikkamäärä: int) -> float:
+def laske_äänikynnys(
+    hyväksytyt_äänet: int, äänihukka: float, paikkamäärä: int
+) -> float:
     return (hyväksytyt_äänet - äänihukka) / paikkamäärä
 
 
@@ -43,10 +45,10 @@ def valitse_toiveikkaat(toiveikkaat: list[Ehdokas], äänikynnys) -> list[Ehdoka
             valitut.append(ehdokas)
 
     return valitut
-            
+
 
 def arvo_pudotettava(pienimmät: list[Ehdokas]) -> Ehdokas:
-    pienimmät[0].pudota() # TODO arvo oikeasti
+    pienimmät[0].pudota()  # TODO arvo oikeasti
     return pienimmät[0]
 
 
@@ -99,19 +101,17 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
         print(f"Pudotetaan ehdokas [{pudotettu._id}]: {pudotettu.nimi}")
         return
 
-    
-def suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet):
 
+def suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet):
     print(f"Paikkoja: {paikkamäärä}\nehdokkaita: {len(ehdokkaat)}")
     while True:
         valitut = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Valittu)
         print(f"valittuja: {len(valitut)}")
         if len(valitut) == paikkamäärä:
-            break            
+            break
 
         kierros(paikkamäärä, ehdokkaat, lipukkeet)
         print()
 
     for ehdokas in ehdokkaat:
         print(f"{ehdokas.nimi}: {ehdokas.summa}, {ehdokas.tila}")
-

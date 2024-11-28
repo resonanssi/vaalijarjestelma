@@ -1,10 +1,12 @@
 from aantenlaskenta.opavote import lue_lipukkeet
 import pytest
 
+
 def test_tyhjä_syöte_antaa_virheen():
     syöte = ""
     with pytest.raises(StopIteration):
         lue_lipukkeet(syöte)
+
 
 def test_nimen_puuttuminen_antaa_virheen():
     syöte = """
@@ -17,6 +19,7 @@ def test_nimen_puuttuminen_antaa_virheen():
 
     with pytest.raises(StopIteration):
         lue_lipukkeet(syöte)
+
 
 def test_lyhyt_syöte():
     syöte = """
@@ -37,6 +40,7 @@ def test_lyhyt_syöte():
     assert ehdokkaat[1].nimi == "Ehdokas 2"
     assert len(lipukkeet) == 1
     assert lipukkeet[0].ehdokkaat == [1, 2]
+
 
 def test_pitkä_vaali():
     syöte = """

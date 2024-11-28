@@ -1,6 +1,7 @@
 from lipuke import Lipuke
 from ehdokas import Ehdokas
 
+
 def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipuke]]:
     """
     Ottaa parametrina opavoten generoiman datan rivitettynä.
@@ -33,6 +34,5 @@ def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipu
         i += 1
 
     vaalin_nimi = next(iteraattori)[1:-1]
-    
-    return (vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet)
 
+    return (vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet)

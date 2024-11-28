@@ -9,7 +9,7 @@ def alusta_ehdokkaat():
         Ehdokas("Ehdokas 2", 2),
         Ehdokas("Ehdokas 3", 3),
         Ehdokas("Ehdokas 4", 4),
-        Ehdokas("Ehdokas 5", 5)
+        Ehdokas("Ehdokas 5", 5),
     ]
 
 
@@ -23,7 +23,7 @@ def alusta_lipukkeet():
 
 
 def test_jättäytyminen1():
-    ehdokkaat = alusta_ehdokkaat()    
+    ehdokkaat = alusta_ehdokkaat()
     lipukkeet = alusta_lipukkeet()
 
     poista_jättäytyneet_lipukkeista([ehdokkaat[0], ehdokkaat[1]], lipukkeet)
@@ -42,10 +42,12 @@ def test_jättäytyminen1():
 
 
 def test_jättäytyminen2():
-    ehdokkaat = alusta_ehdokkaat()    
+    ehdokkaat = alusta_ehdokkaat()
     lipukkeet = alusta_lipukkeet()
 
-    poista_jättäytyneet_lipukkeista([ehdokkaat[0], ehdokkaat[2], ehdokkaat[4]], lipukkeet)
+    poista_jättäytyneet_lipukkeista(
+        [ehdokkaat[0], ehdokkaat[2], ehdokkaat[4]], lipukkeet
+    )
 
     assert ehdokkaat[0].tila == Tila.Jättäytynyt
     assert ehdokkaat[2].tila == Tila.Jättäytynyt

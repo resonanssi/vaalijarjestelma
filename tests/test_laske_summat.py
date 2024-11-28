@@ -17,18 +17,11 @@ def luo_lipukkeet(äänet: list[list[int]]):
 
 def test_summat_kaikki_toiveikkaita():
     nimet = ["A", "B", "C", "D", "E", "F"]
-    äänet = [
-        [0, 1, 2, 3, 4, 5],
-        [2, 1],
-        [2],
-        [3, 2, 5],
-        [3, 4, 2],
-        [3, 5, 1]
-    ]
+    äänet = [[0, 1, 2, 3, 4, 5], [2, 1], [2], [3, 2, 5], [3, 4, 2], [3, 5, 1]]
 
     ehdokkaat = luo_ehdokkaat(nimet)
     lipukkeet = luo_lipukkeet(äänet)
-    
+
     vaali.laske_summat(ehdokkaat, lipukkeet)
 
     assert ehdokkaat[0].summa == 1
@@ -41,14 +34,7 @@ def test_summat_kaikki_toiveikkaita():
 
 def test_summat_pudotettuja():
     nimet = ["A", "B", "C", "D", "E", "F"]
-    äänet = [
-        [0, 1, 2, 3, 4, 5],
-        [2, 1],
-        [2],
-        [3, 2, 5],
-        [3, 4, 2],
-        [3, 5, 1]
-    ]
+    äänet = [[0, 1, 2, 3, 4, 5], [2, 1], [2], [3, 2, 5], [3, 4, 2], [3, 5, 1]]
 
     ehdokkaat = luo_ehdokkaat(nimet)
     lipukkeet = luo_lipukkeet(äänet)
@@ -64,4 +50,3 @@ def test_summat_pudotettuja():
     assert ehdokkaat[3].summa == 0
     assert ehdokkaat[4].summa == 1
     assert ehdokkaat[5].summa == 0
-

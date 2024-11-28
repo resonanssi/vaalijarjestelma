@@ -11,10 +11,12 @@ def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
         print(f"[{ehdokas._id}]: {ehdokas.nimi}")
 
     print("\nSyötä pois jättäytyvän ehdokkaan id (nimeä edeltävä numero).")
-    print("Jos pois jättäytyviä ehdokkaita on monta, syötä ne kaikki pilkulla erotettuna.")
+    print(
+        "Jos pois jättäytyviä ehdokkaita on monta, syötä ne kaikki pilkulla erotettuna."
+    )
     print("Esimerkiksi: 2, 3, 10\n")
 
-    syöte = input("> ").strip().split(",")    
+    syöte = input("> ").strip().split(",")
     pois_jättäytyvät_id = [int(id) for id in syöte]
     pois_jättäytyvät = []
 
@@ -29,9 +31,11 @@ def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
         pois_jättäytyvät.append(ehdokas)
 
     return pois_jättäytyvät
-    
 
-def poista_jättäytyneet_lipukkeista(jättäytyneet: list[Ehdokas], lipukkeet: list[Lipuke]):
+
+def poista_jättäytyneet_lipukkeista(
+    jättäytyneet: list[Ehdokas], lipukkeet: list[Lipuke]
+):
     for ehdokas in jättäytyneet:
         ehdokas.tila = Tila.Jättäytynyt
         ehdokas.painokerroin = 0.0
@@ -40,14 +44,15 @@ def poista_jättäytyneet_lipukkeista(jättäytyneet: list[Ehdokas], lipukkeet: 
 
     for lipuke in lipukkeet:
         lipuke.ehdokkaat = [id for id in lipuke.ehdokkaat if id not in jättäytyneet_id]
-    
+
 
 if __name__ == "__main__":
-
     with open("testivaali.txt") as f:
         vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines())
 
-    joku_jättäytyy = input("Jättäytyykö joku ehdokas poi﻿s? Syötä 'y' jos joku jättäytyy, muuten paina enteriä.")
+    joku_jättäytyy = input(
+        "Jättäytyykö joku ehdokas poi﻿s? Syötä 'y' jos joku jättäytyy, muuten paina enteriä."
+    )
     print()
 
     if joku_jättäytyy == "y":
