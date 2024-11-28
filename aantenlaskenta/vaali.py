@@ -75,8 +75,6 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
 
         äänikynnys = laske_äänikynnys(hyväksytyt_äänet, äänihukka, paikkamäärä)
 
-        äänikynnys = ceil_5dec(äänikynnys)
-
         päivitä_painokertoimet(ehdokkaat, äänikynnys)
         jatketaan = not valittujen_painokertoimet_oikein(ehdokkaat, äänikynnys)
 
