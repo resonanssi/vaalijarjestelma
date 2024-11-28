@@ -1,5 +1,5 @@
 import vaali
-from ehdokas import Ehdokas, Tila
+from ehdokas import Ehdokas
 from lipuke import Lipuke
 
 

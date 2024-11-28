@@ -1,4 +1,4 @@
-from ehdokas import Ehdokas, Tila
+from ehdokas import Ehdokas
 from lipuke import Lipuke
 from utils import floor_5dec, etsi_ehdokas
 

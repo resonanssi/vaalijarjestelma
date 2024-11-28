@@ -15,7 +15,7 @@ def laske_äänikynnys(
     return ceil_5dec((hyväksytyt_äänet - äänihukka) / paikkamäärä)
 
 
-def päivitä_painokertoimet(ehdokkaat: list[Ehdokas], äänikynnys: int) -> bool:
+def päivitä_painokertoimet(ehdokkaat: list[Ehdokas], äänikynnys: int):
     print("Äänikynnys:", äänikynnys)
     for ehdokas in ehdokkaat:
         if ehdokas.tila != Tila.Valittu:
@@ -100,7 +100,7 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
         return
 
 
-def suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet):
+def suorita_vaali(paikkamäärä: int, ehdokkaat: list[Ehdokas], lipukkeet: list[Lipuke]):
     print(f"Paikkoja: {paikkamäärä}\nehdokkaita: {len(ehdokkaat)}")
     while True:
         valitut = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Valittu)
