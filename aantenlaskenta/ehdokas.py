@@ -7,6 +7,9 @@ class Tila(Enum):
     Pudotettu = 3
     Jättäytynyt = 4
 
+    def __str__(self):
+        return self.name
+
 
 class Ehdokas:
     _id: int

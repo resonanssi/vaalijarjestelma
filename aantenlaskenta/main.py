@@ -7,6 +7,7 @@ from datetime import datetime
 from utils import luo_lokihakemisto
 import os
 
+
 def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
     print("Kuka/ketkä ehdokkaista jättäytyvät?\n")
 
@@ -51,9 +52,11 @@ def poista_jättäytyneet_lipukkeista(
 
 if __name__ == "__main__":
     logger = VaaliLogger()
-    
+
     with open("pikkuvaali.txt") as f:
-        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines(), logger)
+        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(
+            f.readlines(), logger
+        )
 
     joku_jättäytyy = input(
         "Jättäytyykö joku ehdokas poi﻿s? Syötä 'y' jos joku jättäytyy, muuten paina enteriä."
@@ -63,6 +66,9 @@ if __name__ == "__main__":
     if joku_jättäytyy == "y":
         jättäytyneet = kysy_jättäytyneet(ehdokkaat)
         poista_jättäytyneet_lipukkeista(jättäytyneet, lipukkeet)
+        ehdokkaat = [
+            ehdokas for ehdokas in ehdokkaat if ehdokas.tila != Tila.Jättäytynyt
+        ]
 
     print(vaalin_nimi)
     print()
@@ -73,9 +79,11 @@ if __name__ == "__main__":
     lokihakemisto = "vaalit"
     luo_lokihakemisto(lokihakemisto)
 
+    logger.nykytilanne(ehdokkaat)
     print()
     aikaleima = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
     loki_tiedosto = f"vaali_{aikaleima}.log"
     with open(f"{lokihakemisto}/{loki_tiedosto}", "x") as f:
         print(f"Kirjoitetaan logit tiedostoon '{os.path.abspath(loki_tiedosto)}'")
         logger.tulosta_tiedostoon(f)
+

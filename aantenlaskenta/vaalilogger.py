@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 from ehdokas import Ehdokas
+import utils
 
 
 class VaaliLogger:
@@ -8,17 +8,11 @@ class VaaliLogger:
     def __init__(self):
         self.tapahtumat = []
 
-    def lisää(self, tapahtuma: str):
+    def lisää_rivi(self, tapahtuma: str):
         self.tapahtumat.append(tapahtuma + "\n")
 
-    def valinta(self, ehdokas: Ehdokas):
-        pass
-
-    def pudotus(self, ehdokas: Ehdokas):
-        pass
-
-    def uusi_kierros(self):
-        pass
+    def nykytilanne(self, ehdokkaat: list[Ehdokas]):
+        self.tapahtumat.append("\n".join(utils.nykytilanne(ehdokkaat)))
 
     def tulosta_tiedostoon(self, tiedosto):
         tiedosto.writelines(self.tapahtumat)

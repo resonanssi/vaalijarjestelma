@@ -23,8 +23,8 @@ def lue_lipukkeet(
 
     ehdokasmäärä, paikkamäärä = [int(x) for x in eka_rivi]
 
-    logger.lisää(f"Ehdokkaita on {ehdokasmäärä}")
-    logger.lisää(f"Valitaan {paikkamäärä} ehdokasta")
+    logger.lisää_rivi(f"Ehdokkaita on {ehdokasmäärä}")
+    logger.lisää_rivi(f"Valitaan {paikkamäärä} ehdokasta")
 
     lipukkeet = []
     while (rivi := next(iteraattori)) != "0":
