@@ -2,6 +2,8 @@ from opavote import lue_lipukkeet
 from ehdokas import Ehdokas, Tila
 from lipuke import Lipuke
 from vaali import suorita_vaali
+from vaalilogger import VaaliLogger
+from datetime import datetime
 
 
 def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
@@ -47,8 +49,12 @@ def poista_jättäytyneet_lipukkeista(
 
 
 if __name__ == "__main__":
-    with open("testivaali.txt") as f:
-        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines())
+    logger = VaaliLogger()
+
+    with open("pikkuvaali.txt") as f:
+        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(
+            f.readlines(), logger
+        )
 
     joku_jättäytyy = input(
         "Jättäytyykö joku ehdokas poi﻿s? Syötä 'y' jos joku jättäytyy, muuten paina enteriä."
@@ -64,3 +70,9 @@ if __name__ == "__main__":
     print()
 
     suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet)
+
+    aikaleima = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+    loki_tiedosto = f"vaali_{aikaleima}.log"
+    with open(loki_tiedosto, "x") as f:
+        print(f"Kirjoitetaan logit tiedostoon '{loki_tiedosto}'")
+        logger.tulosta_tiedostoon(f)
