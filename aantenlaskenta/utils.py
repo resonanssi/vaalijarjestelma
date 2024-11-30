@@ -1,5 +1,6 @@
 from ehdokas import Ehdokas, Tila
 import math
+import os
 
 
 def ceil_5dec(x: float) -> float:
@@ -20,3 +21,11 @@ def etsi_ehdokas(ehdokkaat: list[Ehdokas], ehdokas_id: int) -> Ehdokas:
             return ehdokas
 
     raise Exception(f"Ehdokasta numero {ehdokas_id} ei löydy")
+
+
+def luo_lokihakemisto(hakemisto: str):
+    if os.path.isdir(hakemisto):
+        return
+
+    os.makedirs(hakemisto)
+    print(f"Luodaan lokeille hakemisto: {os.path.abspath(hakemisto)}")
