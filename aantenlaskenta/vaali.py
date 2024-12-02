@@ -23,15 +23,15 @@ def päivitä_painokertoimet(ehdokkaat: list[Ehdokas], äänikynnys: float):
 
         print(f"Ehdokas {ehdokas.nimi}, summa: {ehdokas.summa}")
 
-        vanha = ehdokas.painokerroin
         ehdokas.painokerroin *= äänikynnys / ehdokas.summa
 
 
-def valittujen_painokertoimet_oikein(
-    ehdokkaat: list[Ehdokas], äänikynnys: float
-) -> bool:
+def valittujen_summat_oikein(ehdokkaat: list[Ehdokas], äänikynnys: float) -> bool:
     for ehdokas in ehdokkaat:
-        if ehdokas.tila == Tila.Valittu and abs(ehdokas.summa - äänikynnys) > 0.00001:
+        if not ehdokas.tila == Tila.Valittu:
+            continue
+
+        if round(100_000 * abs(ehdokas.summa - äänikynnys)) > 1:
             return False
 
     return True
@@ -79,7 +79,7 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
         äänikynnys = laske_äänikynnys(hyväksytyt_äänet, äänihukka, paikkamäärä)
 
         päivitä_painokertoimet(ehdokkaat, äänikynnys)
-        jatketaan = not valittujen_painokertoimet_oikein(ehdokkaat, äänikynnys)
+        jatketaan = not valittujen_summat_oikein(ehdokkaat, äänikynnys)
 
     valitut = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Valittu)
     toiveikkaat = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Toiveikas)
