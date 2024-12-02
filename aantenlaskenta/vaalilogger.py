@@ -16,3 +16,6 @@ class VaaliLogger:
 
     def tulosta_tiedostoon(self, tiedosto):
         tiedosto.writelines(self.tapahtumat)
+
+
+vaalilogger = VaaliLogger()

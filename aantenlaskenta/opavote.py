@@ -1,11 +1,9 @@
 from lipuke import Lipuke
 from ehdokas import Ehdokas
-from vaalilogger import VaaliLogger
+from vaalilogger import vaalilogger
 
 
-def lue_lipukkeet(
-    syöte: list[str], logger: VaaliLogger
-) -> tuple[str, int, list[Ehdokas], list[Lipuke]]:
+def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipuke]]:
     """
     Ottaa parametrina opavoten generoiman datan rivitettynä.
     Palauttaa (vaalin nimi, paikkojen määrä, ehdokkaat, lipukkeet)
@@ -23,8 +21,8 @@ def lue_lipukkeet(
 
     ehdokasmäärä, paikkamäärä = [int(x) for x in eka_rivi]
 
-    logger.lisää_rivi(f"Ehdokkaita on {ehdokasmäärä}")
-    logger.lisää_rivi(f"Valitaan {paikkamäärä} ehdokasta")
+    vaalilogger.lisää_rivi(f"Ehdokkaita on {ehdokasmäärä}")
+    vaalilogger.lisää_rivi(f"Valitaan {paikkamäärä} ehdokasta")
 
     lipukkeet = []
     while (rivi := next(iteraattori)) != "0":
