@@ -20,7 +20,7 @@ def etsi_ehdokas(ehdokkaat: list[Ehdokas], ehdokas_id: int) -> Ehdokas:
         if ehdokas._id == ehdokas_id:
             return ehdokas
 
-    raise Exception(f"Ehdokasta numero {ehdokas_id} ei löydy")
+    raise VaaliException(f"Ehdokasta numero {ehdokas_id} ei löydy")
 
 
 def luo_lokihakemisto(hakemisto: str):
@@ -92,3 +92,7 @@ def nykytilanne(ehdokkaat: list[Ehdokas]) -> list[str]:
     tulostus.append(alin_rivi)
 
     return tulostus
+
+
+class VaaliException(Exception):
+    pass

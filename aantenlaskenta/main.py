@@ -4,8 +4,9 @@ from lipuke import Lipuke
 from vaali import suorita_vaali
 from vaalilogger import vaalilogger
 from datetime import datetime
-from utils import luo_lokihakemisto
+from utils import luo_lokihakemisto, VaaliException
 import os
+import sys
 
 
 def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
@@ -24,7 +25,7 @@ def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
     try:
         pois_jättäytyvät_id = [int(id) for id in syöte]
     except ValueError:
-        raise Exception("Kirjoita syöte oikeassa muodossa!")
+        raise VaaliException("Kirjoita syöte oikeassa muodossa!")
 
     pois_jättäytyvät = []
 
@@ -32,7 +33,7 @@ def kysy_jättäytyneet(ehdokkaat: list[Ehdokas]):
         filtteröidyt = list(filter(lambda ehdokas: ehdokas._id == id, ehdokkaat))
 
         if len(filtteröidyt) == 0:
-            raise Exception(f"Ehdokasta numero {id} ei löytynyt!")
+            raise VaaliException(f"Ehdokasta numero {id} ei löytynyt!")
 
         ehdokas = filtteröidyt[0]
         print(f"Merkitään ehdokas {ehdokas.nimi} jättäytyneeksi pois")
@@ -54,13 +55,21 @@ def poista_jättäytyneet_lipukkeista(
         lipuke.ehdokkaat = [id for id in lipuke.ehdokkaat if id not in jättäytyneet_id]
 
 
-def main():
-    print("Syötä vaalitiedoston nimi:")
-    vaalitiedosto = input("> ")
-    # vaalitiedosto = "pikkuvaali.txt"
+def lue_vaalitiedosto(tiedosto: str) -> (str, int, list[Ehdokas], list[Lipuke]):
+    with open(tiedosto) as f:
+        return lue_lipukkeet(f.readlines())
 
-    with open(vaalitiedosto) as f:
-        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines())
+
+def main():
+    # vaalitiedoston nimen voi syöttää parametrina
+    # esim. python aantenlaskenta/main.py testivaali.txt
+    if len(sys.argv) > 1:
+        vaalitiedosto = sys.argv[1]
+    else:
+        print("Syötä vaalitiedoston nimi:")
+        vaalitiedosto = input("> ")
+
+    vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_vaalitiedosto(vaalitiedosto)
 
     print(
         "Jättäytyykö joku ehdokas pois? Syötä 'y' jos joku jättäytyy, muuten paina enteriä:"
@@ -83,15 +92,16 @@ def main():
     luo_lokihakemisto(lokihakemisto)
 
     print()
+    vaalin_nimi = vaalin_nimi.replace(" ", "_")
     aikaleima = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-    loki_tiedosto = f"vaali_{aikaleima}.log"
+    loki_tiedosto = f"{vaalin_nimi}_{aikaleima}.log"
     with open(f"{lokihakemisto}/{loki_tiedosto}", "x") as f:
-        print(f"Kirjoitetaan logit tiedostoon '{os.path.abspath(loki_tiedosto)}'")
+        print(f"Kirjoitetaan logit tiedostoon '{os.path.abspath(f.name)}'")
         vaalilogger.tulosta_tiedostoon(f)
 
 
 if __name__ == "__main__":
     try:
         main()
-    except Exception as e:
+    except VaaliException as e:
         print("Virhe:", e)

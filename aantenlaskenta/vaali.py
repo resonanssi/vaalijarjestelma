@@ -2,6 +2,8 @@ from ehdokas import Ehdokas, Tila
 from lipuke import Lipuke
 from utils import ceil_5dec, etsi_ehdokkaat_tilassa
 from laske_summat import laske_summat
+from vaalilogger import vaalilogger
+import secrets
 
 
 def nollaa_summat(ehdokkaat: list[Ehdokas]):
@@ -50,8 +52,11 @@ def valitse_toiveikkaat(toiveikkaat: list[Ehdokas], äänikynnys) -> list[Ehdoka
 
 
 def arvo_pudotettava(pienimmät: list[Ehdokas]) -> Ehdokas:
-    pienimmät[0].pudota()  # TODO arvo oikeasti
-    return pienimmät[0]
+    vaalilogger.arvonnan_aloitus(pienimmät)
+    valittu = secrets.choice(pienimmät)
+    valittu.pudota()
+    vaalilogger.arvonnan_tulos(valittu)
+    return valittu
 
 
 def pudota_pienin(toiveikkaat: list[Ehdokas]) -> Ehdokas | None:
