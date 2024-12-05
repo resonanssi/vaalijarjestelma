@@ -45,8 +45,8 @@ def nykytilanne(ehdokkaat: list[Ehdokas]) -> list[str]:
     tila_pituus = len("Jättäytynyt")
     tila_teksti = "tila".center(tila_pituus, " ")
 
-    painokerroin_teksti = "painokerroin"
-    painokerroin_pituus = len(painokerroin_teksti)
+    painokerroin_pituus = 20
+    painokerroin_teksti = "painokerroin".center(painokerroin_pituus, " ")
 
     ääniosuus_teksti = "ääniosuuksien summa"
     ääniosuus_pituus = len(ääniosuus_teksti)
@@ -81,9 +81,7 @@ def nykytilanne(ehdokkaat: list[Ehdokas]) -> list[str]:
         _id = str(ehdokas._id).center(id_pituus, " ")
         nimi = str(ehdokas.nimi).center(nimi_pituus, " ")
         tila = str(ehdokas.tila).center(tila_pituus, " ")
-        painokerroin = str(ceil_5dec(ehdokas.painokerroin)).center(
-            painokerroin_pituus, " "
-        )
+        painokerroin = str(ehdokas.painokerroin).center(painokerroin_pituus, " ")
         summa = str(floor_5dec(ehdokas.summa)).center(ääniosuus_pituus, " ")
         tulostus.append(
             "│ " + " │ ".join([_id, nimi, tila, painokerroin, summa]) + " │"

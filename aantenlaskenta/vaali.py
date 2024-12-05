@@ -110,14 +110,14 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
 
 def suorita_vaali(paikkamäärä: int, ehdokkaat: list[Ehdokas], lipukkeet: list[Lipuke]):
     print(f"Paikkoja: {paikkamäärä}\nehdokkaita: {len(ehdokkaat)}")
+    kierros_nro = 1
     while True:
         valitut = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Valittu)
         print(f"valittuja: {len(valitut)}")
         if len(valitut) == paikkamäärä:
             break
 
+        vaalilogger.uusi_kierros(kierros_nro)
         kierros(paikkamäärä, ehdokkaat, lipukkeet)
-        print()
-
-    for ehdokas in ehdokkaat:
-        print(f"{ehdokas.nimi}: {ehdokas.summa}, {ehdokas.tila}")
+        vaalilogger.nykytilanne(ehdokkaat)
+        kierros_nro += 1
