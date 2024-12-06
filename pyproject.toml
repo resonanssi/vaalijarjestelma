@@ -2,7 +2,7 @@
 name = "ääntenlaskenta2024"
 version = "0.1.0"
 description = "Ääntenlaskentaohjelma TKO-äly ry:n yhdistyksen kokouksiin."
-authors = ["Alexandra Holvi <alexandra.holvi@gmail.com>"]
+authors = ["Alexandra Holvi", "Sanna Hanén"]
 readme = "README.md"
 packages = [
   { include = "aantenlaskenta" }
