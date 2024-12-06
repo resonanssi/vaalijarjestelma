@@ -81,9 +81,7 @@ def nykytilanne(ehdokkaat: list[Ehdokas]) -> list[str]:
         _id = str(ehdokas._id).center(id_pituus, " ")
         nimi = str(ehdokas.nimi).center(nimi_pituus, " ")
         tila = str(ehdokas.tila).center(tila_pituus, " ")
-        painokerroin = str(ehdokas.painokerroin).center(
-            painokerroin_pituus, " "
-        )
+        painokerroin = str(ehdokas.painokerroin).center(painokerroin_pituus, " ")
         summa = str(floor_5dec(ehdokas.summa)).center(ääniosuus_pituus, " ")
         tulostus.append(
             "│ " + " │ ".join([_id, nimi, tila, painokerroin, summa]) + " │"

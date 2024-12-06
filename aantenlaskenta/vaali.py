@@ -23,14 +23,26 @@ def päivitä_painokertoimet(ehdokkaat: list[Ehdokas], äänikynnys: float):
             continue
 
         ehdokas.painokerroin *= äänikynnys / ehdokas.summa
+        vaalilogger.lisää_rivi(
+            f"Päivitetään painokerroin ehdokkaalle {ehdokas}:  {ehdokas.painokerroin}",
+            vain_tiedostoon=True,
+        )
 
 
 def valittujen_summat_oikein(ehdokkaat: list[Ehdokas], äänikynnys: float) -> bool:
+    vaalilogger.lisää_rivi(
+        f"Tarkistetaan, onko kaikilla valituilla summa = äänikynnys = {äänikynnys}",
+        vain_tiedostoon=True,
+    )
     for ehdokas in ehdokkaat:
         if not ehdokas.tila == Tila.Valittu:
             continue
 
         if round(100_000 * abs(ehdokas.summa - äänikynnys)) > 1:
+            vaalilogger.lisää_rivi(
+                f"Ehdokkaan {ehdokas} summa ei täsmännyt vielä: {ehdokas.summa}",
+                vain_tiedostoon=True,
+            )
             return False
 
     return True
@@ -41,7 +53,7 @@ def valitse_toiveikkaat(toiveikkaat: list[Ehdokas], äänikynnys) -> list[Ehdoka
     for ehdokas in toiveikkaat:
         assert ehdokas.tila == Tila.Toiveikas
         if ehdokas.summa >= äänikynnys:
-            print(f"Valitaan ehdokas {ehdokas}")
+            vaalilogger.lisää_rivi(f"Valitaan ehdokas {ehdokas}")
             ehdokas.valitse()
             valitut.append(ehdokas)
 
@@ -52,6 +64,7 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
     jatketaan = True
     äänikynnys = float("inf")
 
+    vaalilogger.lisää_rivi("\nIteroidaan painokertoimia.", vain_tiedostoon=True)
     while jatketaan:
         for ehdokas in ehdokkaat:
             ehdokas.alusta_painokerroin()
@@ -59,17 +72,26 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
         nollaa_summat(ehdokkaat)
 
         äänihukka, hyväksytyt_äänet = laske_summat(ehdokkaat, lipukkeet)
+        vaalilogger.lisää_rivi(f"äänihukka: {äänihukka}", vain_tiedostoon=True)
+        vaalilogger.lisää_rivi(
+            f"hyväksytyt äänet: {hyväksytyt_äänet}", vain_tiedostoon=True
+        )
 
         äänikynnys = laske_äänikynnys(hyväksytyt_äänet, äänihukka, paikkamäärä)
+        vaalilogger.lisää_rivi(f"äänikynnys: {äänikynnys}", vain_tiedostoon=True)
 
+        vaalilogger.lisää_rivi("päivitetään painokertoimet", vain_tiedostoon=True)
         päivitä_painokertoimet(ehdokkaat, äänikynnys)
         jatketaan = not valittujen_summat_oikein(ehdokkaat, äänikynnys)
+        vaalilogger.lisää_rivi(
+            f"kaikkien valittujen painokertoimet oikein: {not jatketaan}\n",
+            vain_tiedostoon=True,
+        )
 
     valitut = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Valittu)
     toiveikkaat = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Toiveikas)
 
     if len(valitut) + len(toiveikkaat) == paikkamäärä:
-        # valitaan loput
         vaalilogger.lisää_rivi("Valitaan loput ehdokkaat:")
         for toiveikas in toiveikkaat:
             toiveikas.tila = Tila.Valittu
