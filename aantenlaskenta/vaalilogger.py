@@ -9,20 +9,17 @@ class VaaliLogger:
         self.tapahtumat = []
 
     def lisää_rivi(self, tapahtuma: str, vain_tiedostoon=False):
-        print(tapahtuma)
+        if not vain_tiedostoon:
+            print(tapahtuma)
         self.tapahtumat.append(tapahtuma + "\n")
 
     def arvonnan_aloitus(self, ehdokkaat: list[Ehdokas]):
-        ehdokas_nimet = [f"\t[{ehdokas._id}]: {ehdokas.nimi}" for ehdokas in ehdokkaat]
-        tulostus = f"Arvotaan pudotettava ehdokkaista:\n" + "\n".join(ehdokas_nimet)
-        self.lisää_rivi(tulostus)
-
-    def arvonnan_tulos(self, ehdokas: Ehdokas):
-        tulostus = f"Pudotettiin ehdokas: [{ehdokas._id}] {ehdokas.nimi}"
-        self.lisää_rivi(tulostus)
+        self.lisää_rivi("Arvotaan pudotettava seuraavista:")
+        for ehdokas in ehdokkaat:
+            self.lisää_rivi(f"\t{ehdokas}")
 
     def uusi_kierros(self, kierros_nro: int):
-        tulostus = f"{"-"*80}\n Kierros {kierros_nro}\n"
+        tulostus = f"\n{"-"*80}\n Kierros {kierros_nro}\n"
         self.lisää_rivi(tulostus)
 
     def nykytilanne(self, ehdokkaat: list[Ehdokas], vain_tiedostoon=False):

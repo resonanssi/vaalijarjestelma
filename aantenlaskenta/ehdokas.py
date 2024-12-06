@@ -17,6 +17,7 @@ class Ehdokas:
     painokerroin: float
     tila: Tila
     summa: float
+    pudotusvertailu_summa: float
 
     def __init__(self, nimi: str, _id: int):
         self.nimi = nimi
@@ -24,9 +25,10 @@ class Ehdokas:
         self.painokerroin = 1.0
         self._id = _id
         self.summa = 0.0
+        self.pudotusvertailu_summa = 0.0
 
     def __str__(self) -> str:
-        return f"Ehdokas({self.nimi}, {self.tila}, {self.painokerroin}, {self._id})"
+        return f"[{self._id}]: {self.nimi}"
 
     def valitse(self):
         self.tila = Tila.Valittu

@@ -15,12 +15,12 @@ def etsi_ehdokkaat_tilassa(ehdokkaat: list[Ehdokas], tila: Tila) -> list[Ehdokas
     return [ehdokas for ehdokas in ehdokkaat if ehdokas.tila == tila]
 
 
-def etsi_ehdokas(ehdokkaat: list[Ehdokas], ehdokas_id: int) -> Ehdokas:
+def etsi_ehdokas(ehdokkaat: list[Ehdokas], ehdokas_id: int) -> Ehdokas | None:
     for ehdokas in ehdokkaat:
         if ehdokas._id == ehdokas_id:
             return ehdokas
 
-    raise VaaliException(f"Ehdokasta numero {ehdokas_id} ei löydy")
+    return None
 
 
 def luo_lokihakemisto(hakemisto: str):
@@ -81,7 +81,9 @@ def nykytilanne(ehdokkaat: list[Ehdokas]) -> list[str]:
         _id = str(ehdokas._id).center(id_pituus, " ")
         nimi = str(ehdokas.nimi).center(nimi_pituus, " ")
         tila = str(ehdokas.tila).center(tila_pituus, " ")
-        painokerroin = str(ehdokas.painokerroin).center(painokerroin_pituus, " ")
+        painokerroin = str(ehdokas.painokerroin).center(
+            painokerroin_pituus, " "
+        )
         summa = str(floor_5dec(ehdokas.summa)).center(ääniosuus_pituus, " ")
         tulostus.append(
             "│ " + " │ ".join([_id, nimi, tila, painokerroin, summa]) + " │"

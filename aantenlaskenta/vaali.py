@@ -1,6 +1,6 @@
 from ehdokas import Ehdokas, Tila
 from lipuke import Lipuke
-from utils import ceil_5dec, etsi_ehdokkaat_tilassa
+from utils import ceil_5dec, etsi_ehdokas, etsi_ehdokkaat_tilassa, VaaliException
 from laske_summat import laske_summat
 from vaalilogger import vaalilogger
 import secrets
@@ -18,12 +18,9 @@ def laske_äänikynnys(
 
 
 def päivitä_painokertoimet(ehdokkaat: list[Ehdokas], äänikynnys: float):
-    print("Äänikynnys:", äänikynnys)
     for ehdokas in ehdokkaat:
         if ehdokas.tila != Tila.Valittu:
             continue
-
-        print(f"Ehdokas {ehdokas.nimi}, summa: {ehdokas.summa}")
 
         ehdokas.painokerroin *= äänikynnys / ehdokas.summa
 
@@ -44,7 +41,7 @@ def valitse_toiveikkaat(toiveikkaat: list[Ehdokas], äänikynnys) -> list[Ehdoka
     for ehdokas in toiveikkaat:
         assert ehdokas.tila == Tila.Toiveikas
         if ehdokas.summa >= äänikynnys:
-            print(f"Valitaan ehdokas [{ehdokas._id}]: {ehdokas.nimi}")
+            print(f"Valitaan ehdokas {ehdokas}")
             ehdokas.valitse()
             valitut.append(ehdokas)
 
@@ -52,24 +49,77 @@ def valitse_toiveikkaat(toiveikkaat: list[Ehdokas], äänikynnys) -> list[Ehdoka
 
 
 def arvo_pudotettava(pienimmät: list[Ehdokas]) -> Ehdokas:
-    vaalilogger.arvonnan_aloitus(pienimmät)
     valittu = secrets.choice(pienimmät)
-    valittu.pudota()
-    vaalilogger.arvonnan_tulos(valittu)
     return valittu
 
 
-def pudota_pienin(toiveikkaat: list[Ehdokas]) -> Ehdokas | None:
-    pienin_summa = min(map(lambda ehdokas: ehdokas.summa, toiveikkaat))
-    pienimmät = [ehdokas for ehdokas in toiveikkaat if ehdokas.summa == pienin_summa]
+def etsi_pienimmät(toiveikkaat: list[Ehdokas], pudotusvertailu=False) -> list[Ehdokas]:
+    if pudotusvertailu:
+        pienin_summa = min(
+            map(lambda ehdokas: ehdokas.pudotusvertailu_summa, toiveikkaat)
+        )
+        pienimmät = [
+            ehdokas
+            for ehdokas in toiveikkaat
+            if ehdokas.pudotusvertailu_summa == pienin_summa
+        ]
+    else:
+        pienin_summa = min(map(lambda ehdokas: ehdokas.summa, toiveikkaat))
+        pienimmät = [
+            ehdokas for ehdokas in toiveikkaat if ehdokas.summa == pienin_summa
+        ]
 
+    vaalilogger.lisää_rivi(f"Pienin summa: {pienin_summa}", vain_tiedostoon=True)
+    vaalilogger.lisää_rivi("Pienimmän summan omaavat ehdokkaat:", vain_tiedostoon=True)
+
+    for ehdokas in pienimmät:
+        vaalilogger.lisää_rivi(f"\t{ehdokas}", vain_tiedostoon=True)
+    return pienimmät
+
+
+def vertaile_pienimpiä(
+    pienimmät: list[Ehdokas], lipukkeet: list[Lipuke]
+) -> list[Ehdokas]:
+    vanhat_pienimmät = None
+    while True:
+        for ehdokas in pienimmät:
+            ehdokas.pudotusvertailu_summa = 0.0
+        for lipuke in lipukkeet:
+            for ehdokas_id in lipuke.ehdokkaat:
+                ehdokas = etsi_ehdokas(pienimmät, ehdokas_id)
+                if ehdokas is not None:
+                    ehdokas.pudotusvertailu_summa += 1.0
+                    break
+
+        vanhat_pienimmät = pienimmät
+        pienimmät = etsi_pienimmät(pienimmät, pudotusvertailu=True)
+        if len(pienimmät) == 1 or pienimmät == vanhat_pienimmät:
+            return pienimmät
+
+
+def suorita_pudotus(ehdokkaat: list[Ehdokas], lipukkeet: list[Lipuke]):
+    vaalilogger.lisää_rivi("Kierroksella ei valittu ketään. Aloitetaan pudotus.\n")
+    toiveikkaat = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Toiveikas)
+    pienimmät = etsi_pienimmät(toiveikkaat)
+
+    if len(pienimmät) == 0:
+        raise VaaliException("ei löytynyt pienimmän summan ehdokkaita.")
     if len(pienimmät) == 1:
         pienimmät[0].pudota()
+        return
 
-        return pienimmät[0]
+    pienimmät = vertaile_pienimpiä(pienimmät, lipukkeet)
 
-    pudotettu = arvo_pudotettava(pienimmät)
-    return pudotettu
+    if len(pienimmät) == 0:
+        raise VaaliException("vertailun jälkeen ei löytynyt pudotettavia.")
+    if len(pienimmät) == 1:
+        pienimmät[0].pudota()
+        return
+
+    vaalilogger.arvonnan_aloitus(pienimmät)
+    pudotettava = arvo_pudotettava(pienimmät)
+    vaalilogger.lisää_rivi(f"Arvonnalla valittiin pudotettavaksi {pudotettava}")
+    pudotettava.pudota()
 
 
 def kierros(paikkamäärä, ehdokkaat, lipukkeet):
@@ -104,19 +154,14 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
     if len(valitut) > 0:
         return
 
-    pudotettu = pudota_pienin(toiveikkaat)
-
-    if pudotettu is not None:
-        print(f"Pudotetaan ehdokas [{pudotettu._id}]: {pudotettu.nimi}")
-        return
+    suorita_pudotus(ehdokkaat, lipukkeet)
 
 
 def suorita_vaali(paikkamäärä: int, ehdokkaat: list[Ehdokas], lipukkeet: list[Lipuke]):
-    print(f"Paikkoja: {paikkamäärä}\nehdokkaita: {len(ehdokkaat)}")
+    vaalilogger.lisää_rivi(f"Paikkoja: {paikkamäärä}\nehdokkaita: {len(ehdokkaat)}")
     kierros_nro = 1
     while True:
         valitut = etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Valittu)
-        print(f"valittuja: {len(valitut)}")
         if len(valitut) == paikkamäärä:
             break
 
