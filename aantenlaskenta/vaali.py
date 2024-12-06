@@ -64,7 +64,7 @@ def pudota_pienin(toiveikkaat: list[Ehdokas]) -> Ehdokas | None:
     pienimmät = [ehdokas for ehdokas in toiveikkaat if ehdokas.summa == pienin_summa]
 
     if len(pienimmät) == 1:
-        pienimmät[0].tila = Tila.Pudotettu
+        pienimmät[0].pudota()
 
         return pienimmät[0]
 
