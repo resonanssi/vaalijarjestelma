@@ -33,4 +33,12 @@ class Ehdokas:
 
     def pudota(self):
         self.tila = Tila.Pudotettu
-        self.painokerroin = 0.0
+
+    def alusta_painokerroin(self):
+        match self.tila:
+            case Tila.Pudotettu:
+                self.painokerroin = 0.0
+            case Tila.Toiveikas:
+                self.painokerroin = 1.0
+            case _:
+                pass

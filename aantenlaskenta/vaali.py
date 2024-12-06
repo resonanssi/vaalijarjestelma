@@ -77,6 +77,9 @@ def kierros(paikkamäärä, ehdokkaat, lipukkeet):
     äänikynnys = float("inf")
 
     while jatketaan:
+        for ehdokas in ehdokkaat:
+            ehdokas.alusta_painokerroin()
+
         nollaa_summat(ehdokkaat)
 
         äänihukka, hyväksytyt_äänet = laske_summat(ehdokkaat, lipukkeet)
