@@ -41,5 +41,19 @@ asentaaksesi vaadittavat riippuvuudet, kuten pytestin.
   [poetry run] ruff format
 ```
 
+### Tyypityksen tarkistaminen
+
+Varsinaiselle ohjelmalle:
+
+```
+  [poetry run] mypy aantenlaskenta/
+```
+
+Testeille:
+
+```
+  [poetry run] mypy tests/
+```
+
 Kaikkien komentojen pitäisi toimia ilman Poetryäkin, 
 kunhan tarvittavat työkalut on asennettu jotain muuta kautta.
