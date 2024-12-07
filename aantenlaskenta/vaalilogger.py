@@ -1,5 +1,5 @@
-from ehdokas import Ehdokas
-import utils
+from aantenlaskenta.ehdokas import Ehdokas
+import aantenlaskenta.utils as utils
 
 
 class VaaliLogger:

@@ -1,10 +1,10 @@
-from opavote import lue_lipukkeet
-from ehdokas import Ehdokas, Tila
-from lipuke import Lipuke
-from vaali import suorita_vaali
-from vaalilogger import vaalilogger
+from aantenlaskenta.opavote import lue_lipukkeet
+from aantenlaskenta.ehdokas import Ehdokas, Tila
+from aantenlaskenta.lipuke import Lipuke
+from aantenlaskenta.vaali import suorita_vaali
+from aantenlaskenta.vaalilogger import vaalilogger
+from aantenlaskenta.utils import luo_lokihakemisto, VaaliException
 from datetime import datetime
-from utils import luo_lokihakemisto, VaaliException
 import os
 import sys
 

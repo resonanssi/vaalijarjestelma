@@ -1,4 +1,4 @@
-from ehdokas import Ehdokas, Tila
+from aantenlaskenta.ehdokas import Ehdokas, Tila
 import math
 import os
 

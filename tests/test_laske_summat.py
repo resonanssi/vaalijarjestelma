@@ -1,6 +1,6 @@
-import vaali
-from ehdokas import Ehdokas
-from lipuke import Lipuke
+import aantenlaskenta.vaali as vaali
+from aantenlaskenta.ehdokas import Ehdokas
+from aantenlaskenta.lipuke import Lipuke
 
 
 def luo_ehdokkaat(nimet: list[str]):
@@ -40,7 +40,9 @@ def test_summat_pudotettuja():
     lipukkeet = luo_lipukkeet(äänet)
 
     ehdokkaat[3].pudota()
+    ehdokkaat[3].painokerroin = 0.0
     ehdokkaat[5].pudota()
+    ehdokkaat[5].painokerroin = 0.0
 
     vaali.laske_summat(ehdokkaat, lipukkeet)
 

@@ -1,9 +1,9 @@
-from ehdokas import Ehdokas, Tila
-from lipuke import Lipuke
-from utils import ceil_5dec, etsi_ehdokas, etsi_ehdokkaat_tilassa, VaaliException
-from laske_summat import laske_summat
-from vaalilogger import vaalilogger
-from pudotus import suorita_pudotus
+from aantenlaskenta.ehdokas import Ehdokas, Tila
+from aantenlaskenta.lipuke import Lipuke
+from aantenlaskenta.utils import ceil_5dec, etsi_ehdokas, etsi_ehdokkaat_tilassa, VaaliException
+from aantenlaskenta.laske_summat import laske_summat
+from aantenlaskenta.vaalilogger import vaalilogger
+from aantenlaskenta.pudotus import suorita_pudotus
 
 
 def nollaa_summat(ehdokkaat: list[Ehdokas]):

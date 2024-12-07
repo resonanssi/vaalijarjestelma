@@ -1,6 +1,6 @@
-from lipuke import Lipuke
-from ehdokas import Ehdokas
-from vaalilogger import vaalilogger
+from aantenlaskenta.lipuke import Lipuke
+from aantenlaskenta.ehdokas import Ehdokas
+from aantenlaskenta.vaalilogger import vaalilogger
 
 
 def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipuke]]:

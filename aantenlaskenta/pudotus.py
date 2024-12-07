@@ -1,7 +1,7 @@
-from ehdokas import Ehdokas, Tila
-from lipuke import Lipuke
-from vaalilogger import vaalilogger
-from utils import etsi_ehdokas, etsi_ehdokkaat_tilassa, VaaliException
+from aantenlaskenta.ehdokas import Ehdokas, Tila
+from aantenlaskenta.lipuke import Lipuke
+from aantenlaskenta.vaalilogger import vaalilogger
+from aantenlaskenta.utils import etsi_ehdokas, etsi_ehdokkaat_tilassa, VaaliException
 import secrets
 
 

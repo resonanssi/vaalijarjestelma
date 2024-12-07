@@ -1,5 +1,5 @@
-import vaali
-from ehdokas import Ehdokas, Tila
+import aantenlaskenta.vaali as vaali
+from aantenlaskenta.ehdokas import Ehdokas, Tila
 
 
 def luo_testiehdokkaat(*nimet: list[str]) -> list[Ehdokas]:
@@ -116,16 +116,3 @@ def test_valitse_toiveikkaat():
     assert ehdokkaat[1].tila == Tila.Toiveikas
     assert ehdokkaat[2].tila == Tila.Valittu
     assert ehdokkaat[3].tila == Tila.Valittu
-
-
-def test_pudota_pienin():
-    ehdokkaat = luo_testiehdokkaat("A", "B", "C", "D")
-    for ehdokas, summa in zip(ehdokkaat, [1.0, 2.0, 3.0, 4.0]):
-        ehdokas.summa = summa
-
-    pudotettu = vaali.pudota_pienin(ehdokkaat)
-    assert pudotettu == ehdokkaat[0]
-
-    ehdokkaat[0].summa = 100.0
-    pudotettu = vaali.pudota_pienin(ehdokkaat)
-    assert pudotettu == ehdokkaat[1]

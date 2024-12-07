@@ -1,4 +1,4 @@
-import utils
+import aantenlaskenta.utils as utils
 
 
 def test_ylöspyöristys():

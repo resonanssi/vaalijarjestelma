@@ -1,6 +1,6 @@
-from main import poista_jättäytyneet_lipukkeista
-from ehdokas import Ehdokas, Tila
-from lipuke import Lipuke
+from aantenlaskenta.main import poista_jättäytyneet_lipukkeista
+from aantenlaskenta.ehdokas import Ehdokas, Tila
+from aantenlaskenta.lipuke import Lipuke
 
 
 def alusta_ehdokkaat():
