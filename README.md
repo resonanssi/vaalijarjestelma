@@ -11,12 +11,12 @@ Asenna ohjelma koneellesi esimerkiksi
 - kloonaamalla gitillä
 - lataamalla Zip-tiedoston Githubista ja purkamalla tiedoston
 
-Avaa komentorivi ja siirry ohjelmakansioon (`aantenlaskenta/`).
+Avaa komentorivi ja siirry projektin juureen.
 
 Suorita ohjelma komennolla:
 
 ```
-  python aantenlaskenta/main.py [vaalitiedosto]
+  python main.py [vaalitiedosto]
 ```
 
 Ohjelma tulostaa näytölle vaalin kulun, 

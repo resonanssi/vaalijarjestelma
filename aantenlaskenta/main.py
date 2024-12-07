@@ -62,7 +62,7 @@ def lue_vaalitiedosto(tiedosto: str) -> Tuple[str, int, list[Ehdokas], list[Lipu
         return lue_lipukkeet(f.readlines())
 
 
-def main():
+def aloita():
     # vaalitiedoston nimen voi syöttää parametrina
     # esim. python aantenlaskenta/main.py testivaali.txt
     if len(sys.argv) > 1:
@@ -100,10 +100,3 @@ def main():
     with open(f"{lokihakemisto}/{loki_tiedosto}", "x") as f:
         print(f"Kirjoitetaan logit tiedostoon '{os.path.abspath(f.name)}'")
         vaalilogger.tulosta_tiedostoon(f)
-
-
-if __name__ == "__main__":
-    try:
-        main()
-    except VaaliException as e:
-        print("Virhe:", e)

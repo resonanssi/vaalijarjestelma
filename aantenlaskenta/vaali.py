@@ -6,9 +6,6 @@ from aantenlaskenta.utils import (
 )
 
 
-
-
-
 from aantenlaskenta.laske_summat import laske_summat
 from aantenlaskenta.vaalilogger import vaalilogger
 from aantenlaskenta.pudotus import suorita_pudotus
@@ -39,7 +36,7 @@ def päivitä_painokertoimet(ehdokkaat: list[Ehdokas], äänikynnys: float):
 
 def valittujen_summat_oikein(ehdokkaat: list[Ehdokas], äänikynnys: float) -> bool:
     vaalilogger.lisää_rivi(
-        f"Tarkistetaan, onko kaikilla valituilla summa = äänikynnys = {äänikynnys}",
+        f"Tarkistetaan, onko kaikilla valituilla summa oikein (äänikynnys = {äänikynnys})",
         vain_tiedostoon=True,
     )
     for ehdokas in ehdokkaat:
@@ -128,3 +125,8 @@ def suorita_vaali(paikkamäärä: int, ehdokkaat: list[Ehdokas], lipukkeet: list
         vaalilogger.lisää_rivi("\nTilanne kierroksen lopussa:")
         vaalilogger.nykytilanne(ehdokkaat)
         kierros_nro += 1
+
+    vaalilogger.lisää_rivi(f"\n{("="*80 + "\n")*2}")
+    vaalilogger.lisää_rivi("\nValitaan ehdokkaat: \n")
+    for ehdokas in etsi_ehdokkaat_tilassa(ehdokkaat, Tila.Valittu):
+        vaalilogger.lisää_rivi(f"\t{ehdokas}")

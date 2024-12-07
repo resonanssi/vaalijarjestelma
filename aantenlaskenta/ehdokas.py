@@ -28,7 +28,7 @@ class Ehdokas:
         self.pudotusvertailu_summa = 0.0
 
     def __str__(self) -> str:
-        return f"[{self._id}]: {self.nimi}"
+        return f"{self.nimi}"
 
     def __repr__(self) -> str:
         return self.__str__()
