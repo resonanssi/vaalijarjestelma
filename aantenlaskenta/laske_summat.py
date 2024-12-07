@@ -1,6 +1,6 @@
 from aantenlaskenta.ehdokas import Ehdokas
 from aantenlaskenta.lipuke import Lipuke
-from aantenlaskenta.utils import floor_5dec, etsi_ehdokas
+from aantenlaskenta.utils import floor_5dec, etsi_ehdokas,VaaliException
 
 
 def laske_summat(
@@ -17,6 +17,8 @@ def laske_summat(
 
         for ehdokas_id in lipuke.ehdokkaat:
             ehdokas = etsi_ehdokas(ehdokkaat, ehdokas_id)
+            if not ehdokas:
+                raise VaaliException(f"ehdokasta numero {ehdokas_id} ei löytynyt")
             muutos = ehdokas.painokerroin * jäljellä
             ehdokas.summa += muutos
             jäljellä -= muutos

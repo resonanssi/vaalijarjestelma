@@ -4,7 +4,9 @@ from aantenlaskenta.lipuke import Lipuke
 from aantenlaskenta.vaali import suorita_vaali
 from aantenlaskenta.vaalilogger import vaalilogger
 from aantenlaskenta.utils import luo_lokihakemisto, VaaliException
+
 from datetime import datetime
+from typing import Tuple
 import os
 import sys
 
@@ -55,7 +57,7 @@ def poista_jättäytyneet_lipukkeista(
         lipuke.ehdokkaat = [id for id in lipuke.ehdokkaat if id not in jättäytyneet_id]
 
 
-def lue_vaalitiedosto(tiedosto: str) -> (str, int, list[Ehdokas], list[Lipuke]):
+def lue_vaalitiedosto(tiedosto: str) -> Tuple[str, int, list[Ehdokas], list[Lipuke]]:
     with open(tiedosto) as f:
         return lue_lipukkeet(f.readlines())
 
