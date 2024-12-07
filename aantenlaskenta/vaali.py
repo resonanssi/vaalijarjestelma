@@ -1,6 +1,11 @@
 from aantenlaskenta.ehdokas import Ehdokas, Tila
 from aantenlaskenta.lipuke import Lipuke
-from aantenlaskenta.utils import ceil_5dec, etsi_ehdokas, etsi_ehdokkaat_tilassa, VaaliException
+from aantenlaskenta.utils import (
+    ceil_5dec,
+    etsi_ehdokas,
+    etsi_ehdokkaat_tilassa,
+    VaaliException,
+)
 from aantenlaskenta.laske_summat import laske_summat
 from aantenlaskenta.vaalilogger import vaalilogger
 from aantenlaskenta.pudotus import suorita_pudotus

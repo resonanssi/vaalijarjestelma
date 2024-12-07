@@ -1,6 +1,6 @@
 from aantenlaskenta.ehdokas import Ehdokas
 from aantenlaskenta.lipuke import Lipuke
-from aantenlaskenta.utils import floor_5dec, etsi_ehdokas,VaaliException
+from aantenlaskenta.utils import floor_5dec, etsi_ehdokas, VaaliException
 
 
 def laske_summat(

@@ -44,7 +44,7 @@ def vertaile_pienimpiä(
 
         for lipuke in lipukkeet:
             for ehdokas_id in lipuke.ehdokkaat:
-                ehdokas = etsi_ehdokas(pienimmät, ehdokas_id) # type: ignore
+                ehdokas = etsi_ehdokas(pienimmät, ehdokas_id)  # type: ignore
                 if ehdokas is not None:
                     ehdokas.pudotusvertailu_summa += 1.0
                     break

@@ -30,6 +30,9 @@ class Ehdokas:
     def __str__(self) -> str:
         return f"[{self._id}]: {self.nimi}"
 
+    def __repr__(self) -> str:
+        return f"Ehdokas({self._id}, {self.nimi}, {self.tila.name}, summa={self.summa})"
+
     def valitse(self):
         self.tila = Tila.Valittu
 
