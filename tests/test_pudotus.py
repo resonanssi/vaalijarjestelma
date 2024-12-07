@@ -1,6 +1,5 @@
 import aantenlaskenta.pudotus as pudotus
-from aantenlaskenta.opavote import lue_lipukkeet
-from aantenlaskenta.ehdokas import Ehdokas, Tila
+from aantenlaskenta.ehdokas import Ehdokas
 from aantenlaskenta.lipuke import Lipuke
 
 
