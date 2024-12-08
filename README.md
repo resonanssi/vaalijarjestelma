@@ -110,3 +110,5 @@ Viimeisellä rivillä on vielä vaalin nimi. Esimerkissä "Joku vaali"
 ## TODO
 
 Ohjelmassa on vielä vähän asioita mitä voisi parantaa, päällimmäisenä se, ettei se toimi Windowsilla.
+
+Windows-käyttäjille on suositeltavaa käyttää Windows Subsystem for Linuxia.
