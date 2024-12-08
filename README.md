@@ -106,3 +106,7 @@ Viimeisellä rivillä on vielä vaalin nimi. Esimerkissä "Joku vaali"
 ...
 "[vaalin nimi]"
 ```
+
+## TODO
+
+Ohjelmassa on vielä vähän asioita mitä voisi parantaa, päällimmäisenä se, ettei se toimi Windowsilla.
