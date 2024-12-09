@@ -3,7 +3,7 @@ from aantenlaskenta.ehdokas import Ehdokas
 from aantenlaskenta.vaalilogger import vaalilogger
 
 
-def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipuke]]:
+def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipuke], int]:
     """
     Ottaa parametrina opavoten generoiman datan rivitettynä.
     Palauttaa (vaalin nimi, paikkojen määrä, ehdokkaat, lipukkeet)
@@ -25,9 +25,14 @@ def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipu
     vaalilogger.lisää_rivi(f"Valitaan {paikkamäärä} ehdokasta")
 
     lipukkeet = []
+    hylätyt_äänet = 0
     while (rivi := next(iteraattori)) != "0":
         osat = rivi.split()[1:-1]
         ids = [int(x) for x in osat]
+        if len(ids) == 0:
+            hylätyt_äänet += 1
+            continue
+
         lipukkeet.append(Lipuke(ids))
 
     i = 1
@@ -39,4 +44,4 @@ def lue_lipukkeet(syöte: list[str]) -> tuple[str, int, list[Ehdokas], list[Lipu
 
     vaalin_nimi = next(iteraattori)[1:-1]
 
-    return (vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet)
+    return (vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet, hylätyt_äänet)
