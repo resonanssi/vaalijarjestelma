@@ -57,7 +57,7 @@ def poista_jättäytyneet_lipukkeista(
         lipuke.ehdokkaat = [id for id in lipuke.ehdokkaat if id not in jättäytyneet_id]
 
 
-def lue_vaalitiedosto(tiedosto: str) -> Tuple[str, int, list[Ehdokas], list[Lipuke]]:
+def lue_vaalitiedosto(tiedosto: str) -> Tuple[str, int, list[Ehdokas], list[Lipuke], int]:
     with open(tiedosto) as f:
         return lue_lipukkeet(f.readlines())
 
@@ -71,7 +71,9 @@ def aloita():
         print("Syötä vaalitiedoston nimi:")
         vaalitiedosto = input("> ")
 
-    vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_vaalitiedosto(vaalitiedosto)
+    vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet, hylätyt_äänet = lue_vaalitiedosto(
+        vaalitiedosto
+    )
 
     print(
         "Jättäytyykö joku ehdokas pois? Syötä 'y' jos joku jättäytyy, muuten paina enteriä:"
@@ -89,6 +91,11 @@ def aloita():
     print(f"Vaali: {vaalin_nimi}\n\n")
 
     suorita_vaali(paikkamäärä, ehdokkaat, lipukkeet)
+
+    vaalilogger.lisää_rivi("")
+    vaalilogger.lisää_rivi(f"Hyväksyttyjä ääniä: {len(lipukkeet)}")
+    vaalilogger.lisää_rivi(f"Hylättyjä ääniä:    {hylätyt_äänet}")
+    vaalilogger.lisää_rivi(f"Yhteensä ääniä:     {len(lipukkeet) + hylätyt_äänet}")
 
     lokihakemisto = "vaalit"
     luo_lokihakemisto(lokihakemisto)
