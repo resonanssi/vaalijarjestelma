@@ -26,7 +26,7 @@ def test_hallitusvaali():
 
 def test_virkailijavaali():
     with open("testivaaleja/virkailijavaali1.txt") as f:
-        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines())
+        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet, hylätyt_äänet = lue_lipukkeet(f.readlines())
 
     assert vaalin_nimi == "virkailijavaali"
     assert paikkamäärä == 1
@@ -42,7 +42,7 @@ def test_virkailijavaali():
 
 def test_virkailijavaali2():
     with open("testivaaleja/virkailijavaali2.txt") as f:
-        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines())
+        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet, hylätyt_äänet = lue_lipukkeet(f.readlines())
 
     assert vaalin_nimi == "virkailijavaali"
     assert paikkamäärä == 1
@@ -58,7 +58,7 @@ def test_virkailijavaali2():
 
 def test_virkailijavaali3():
     with open("testivaaleja/virkailijavaali3.txt") as f:
-        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet = lue_lipukkeet(f.readlines())
+        vaalin_nimi, paikkamäärä, ehdokkaat, lipukkeet, hylätyt_äänet = lue_lipukkeet(f.readlines())
 
     assert vaalin_nimi == "virkailijavaali"
     assert paikkamäärä == 1
