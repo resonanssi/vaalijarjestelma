@@ -1,6 +1,7 @@
 ## Resonanssi ry:n ääntenlaskuohjelma
 
-Linkki ääni- ja vaalijärjestykseen: !!!LISÄÄ!!!
+Linkki ääni- ja vaalijärjestykseen: https://blogs.helsinki.fi/resonanssi/files/2025/03/vaalijarjestys.pdf
+
 Tämä ohjelma on muokattu versio TKO-äly ry:n tekemästä ääntenlaskuohjelmasta (forkattu MIT lisenssillä 20.2.2025) 
 
 ## Ohjelman suoritus
